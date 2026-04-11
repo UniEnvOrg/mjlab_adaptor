@@ -1,0 +1,20 @@
+[project]
+name = "unienv_mjlab"
+version = "0.0.1a1"
+readme = "README.md"
+license = "MIT"
+requires-python = ">= 3.10"
+dependencies = [
+    "unienv",
+    "mjlab>=1.2",
+]
+
+[project.urls]
+Homepage = "https://github.com/UniEnvOrg/mjlab_adaptor"
+Documentation = "https://github.com/UniEnvOrg/mjlab_adaptor"
+Repository = "https://github.com/UniEnvOrg/mjlab_adaptor"
+Issues = "https://github.com/UniEnvOrg/mjlab_adaptor/issues"
+
+[tool.setuptools.packages.find]
+include = ["*"]
+exclude = ["training*", "tests*"]
