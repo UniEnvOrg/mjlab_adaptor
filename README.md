@@ -33,3 +33,4 @@ for _ in range(10):
 
 - `mjlab` environments are vectorized by default.
 - `mjlab.step()` auto-resets done environments before returning observations. This means that you don't need to call `reset()` after an episode ends.
+- The converted spaces carry unienv space metadata read from the mjlab managers: concatenated observation groups list their terms (`terms`: name, shape, slice) and per-element `names` / `units` (e.g. `joint_pos/left_knee_joint` in `rad`), camera terms are described as `CHW` images / depth normalized to `[0, 1]`, and the action space records what each action term controls (`control`, `mode`, joint `names`, `scale`, `offset`).

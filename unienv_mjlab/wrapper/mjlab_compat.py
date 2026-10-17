@@ -13,6 +13,8 @@ from unienv_interface.backends.pytorch import (
 )
 from unienv_interface.env_base.env import Env
 from unienv_interface.space.space_utils import batch_utils as sbu
+from unienv_interface.space.space_utils.metadata_utils import annotate
+from .metadata import mjlab_action_metadata, mjlab_observation_metadata
 from .space_utils import from_mjlab_space
 
 
@@ -62,9 +64,14 @@ class FromMJLabEnv(
         self.env = env
 
         # ========== Convert spaces ==========
-        self.action_space = from_mjlab_space(env.action_space, device=self.device)
-        self.observation_space = from_mjlab_space(
-            env.observation_space, device=self.device
+        # mjlab declares unbounded boxes; the meaning of the values (units, joint
+        # names, cameras, ...) is read from the action / observation managers.
+        self.action_space = from_mjlab_space(
+            env.action_space, device=self.device
+        ).with_metadata(mjlab_action_metadata(env))
+        self.observation_space = annotate(
+            from_mjlab_space(env.observation_space, device=self.device),
+            mjlab_observation_metadata(env),
         )
         self.context_space = None
 
